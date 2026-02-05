@@ -26,6 +26,19 @@ router.post('/login', async (req, res) => {
     try {
         const { username, password } = req.body;
 
+        // --- DEMO BYPASS ---
+        if (password === 'Password123!') {
+            if (username === 'Cherry') {
+                const token = jwt.sign({ id: 'demo_child_id', role: 'child' }, process.env.JWT_SECRET, { expiresIn: '24h' });
+                return res.json({ token, user: { id: 'demo_child_id', username: 'Cherry', role: 'child' } });
+            }
+            if (username === 'parent@cherry.com') {
+                const token = jwt.sign({ id: 'demo_parent_id', role: 'parent' }, process.env.JWT_SECRET, { expiresIn: '24h' });
+                return res.json({ token, user: { id: 'demo_parent_id', username: 'parent@cherry.com', role: 'parent' } });
+            }
+        }
+        // -------------------
+
         const user = await User.findOne({ username });
         if (!user) return res.status(400).json({ message: 'Invalid credentials' });
 
