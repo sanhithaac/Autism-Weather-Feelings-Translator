@@ -8,23 +8,32 @@ async function seed() {
         await mongoose.connect(process.env.MONGO_URI);
         console.log('Connected to MongoDB for seeding...');
 
-        // Check if parent already exists
-        const existingParent = await User.findOne({ username: 'parent@example.com' });
-        if (existingParent) {
-            console.log('Parent user already exists!');
-            process.exit(0);
-        }
+        // Clear existing demo users
+        await User.deleteMany({ username: { $in: ['parent@cherry.com', 'Cherry'] } });
 
+        // Create Parent
         const parent = new User({
-            username: 'parent@example.com',
-            password: 'Password123!', // Remember the requirements for strong pass in UI if any
+            username: 'parent@cherry.com',
+            password: 'Password123!',
             role: 'parent',
-            childName: 'Sunny'
+            childName: 'Cherry'
         });
-
         await parent.save();
-        console.log('Parent user created successfully!');
-        console.log('Username: parent@example.com');
+
+        // Create Child
+        const child = new User({
+            username: 'Cherry',
+            password: 'Password123!',
+            role: 'child'
+        });
+        await child.save();
+
+        console.log('Demo users created successfully!');
+        console.log('--- PARENT ---');
+        console.log('Username: parent@cherry.com');
+        console.log('Password: Password123!');
+        console.log('--- CHILD ---');
+        console.log('Username: Cherry');
         console.log('Password: Password123!');
 
         process.exit(0);
