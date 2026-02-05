@@ -6,7 +6,7 @@
             "use": "@vercel/node"
         },
         {
-            "src": "client/app/package.json",
+            "src": "client/package.json",
             "use": "@vercel/static-build",
             "config": {
                 "distDir": "build"
@@ -20,11 +20,11 @@
         },
         {
             "source": "/((?!api/).*)",
-            "destination": "client/app/$1"
+            "destination": "client/$1"
         },
         {
             "source": "/((?!api/).*)",
-            "destination": "client/app/index.html"
+            "destination": "client/index.html"
         }
     ]
 }
