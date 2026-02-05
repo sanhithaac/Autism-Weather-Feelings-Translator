@@ -22,8 +22,12 @@ app.get('/api/health', (req, res) => {
 });
 
 // Database Connection
-mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log('Connected to MongoDB via Vercel'))
-    .catch(err => console.error('MongoDB connection error:', err));
+if (process.env.MONGO_URI && !process.env.MONGO_URI.includes('undefined')) {
+    mongoose.connect(process.env.MONGO_URI)
+        .then(() => console.log('Connected to MongoDB via Vercel'))
+        .catch(err => console.error('MongoDB connection error:', err));
+} else {
+    console.log('Running in DEMO MODE (No MongoDB URI found)');
+}
 
 module.exports = app;

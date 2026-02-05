@@ -69,9 +69,15 @@ export default function ParentLogin() {
           </p>
 
           {/* DEMO CREDENTIALS BOX */}
-          <div className="bg-blue-50 border-2 border-dashed border-primary/30 rounded-2xl p-4 mb-6">
-            <p className="text-xs font-bold text-primary uppercase mb-2">🌟 Demo Parent Account</p>
-            <p className="text-sm text-gray-700"><strong>Email:</strong> parent@cherry.com | <strong>Pass:</strong> Password123!</p>
+          <div
+            onClick={() => {
+              setEmail("parent@cherry.com");
+              setPassword("Password123!");
+            }}
+            className="bg-blue-50 border-2 border-dashed border-primary/30 rounded-2xl p-4 mb-6 cursor-pointer hover:bg-blue-100 transition-all group"
+          >
+            <p className="text-xs font-bold text-primary uppercase mb-2">🌟 Demo Parent Account (Click to Auto-fill)</p>
+            <p className="text-sm text-gray-700 group-hover:scale-105 transition-transform"><strong>Email:</strong> parent@cherry.com | <strong>Pass:</strong> Password123!</p>
           </div>
 
           <input

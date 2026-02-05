@@ -45,9 +45,15 @@ export default function ChildLogin() {
 
         <div className="max-w-md mx-auto space-y-5">
           {/* DEMO CREDENTIALS BOX */}
-          <div className="bg-green-50 border-2 border-dashed border-primary/30 rounded-2xl p-4 mb-2">
-            <p className="text-xs font-bold text-primary uppercase mb-2">🌟 Demo Login (for Sir)</p>
-            <p className="text-sm text-gray-700"><strong>Name:</strong> Cherry | <strong>Secret:</strong> Password123!</p>
+          <div
+            onClick={() => {
+              setLoginName("Cherry");
+              setLoginPassword("Password123!");
+            }}
+            className="bg-green-50 border-2 border-dashed border-primary/30 rounded-2xl p-4 mb-2 cursor-pointer hover:bg-green-100 transition-all group"
+          >
+            <p className="text-xs font-bold text-primary uppercase mb-1">🌟 Demo Login (Click to Auto-fill)</p>
+            <p className="text-sm text-gray-700 group-hover:scale-105 transition-transform"><strong>Name:</strong> Cherry | <strong>Secret:</strong> Password123!</p>
           </div>
 
           <div className="text-left">
