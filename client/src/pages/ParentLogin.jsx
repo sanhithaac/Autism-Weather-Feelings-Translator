@@ -17,6 +17,7 @@ export default function ParentLogin() {
     }
 
     try {
+      console.log("Attempting parent login for:", email);
       const response = await authAPI.login({
         username: email,
         password: password
@@ -27,14 +28,16 @@ export default function ParentLogin() {
         return;
       }
 
+      console.log("Parent login successful!");
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("parentLoggedIn", "true");
       localStorage.setItem("parentEmail", response.data.user.username);
       localStorage.setItem("loggedIn", "true");
       localStorage.setItem("userRole", "parent");
 
-      navigate("/dashboard");
+      window.location.hash = "/dashboard";
     } catch (err) {
+      console.error("Parent Login Error:", err);
       alert(err.response?.data?.message || "Invalid login details ❌");
     }
   };

@@ -14,12 +14,15 @@ import WeatherDetails from "./pages/WeatherDetails";
 import HelpingHand from "./pages/HelpingHand";
 import Success from "./pages/Success";
 
+import Home from "./pages/Home";
+
 function App() {
   return (
     <Router>
       <Routes>
         {/* Pages WITHOUT navbar */}
         <Route path="/" element={<ChildLogin />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/signup" element={<Register />} />
         <Route path="/parent-login" element={<ParentLogin />} />
         <Route path="/success" element={<Success />} />

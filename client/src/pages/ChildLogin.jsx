@@ -14,18 +14,22 @@ export default function ChildLogin() {
     }
 
     try {
+      console.log("Attempting login for:", loginName);
       const response = await authAPI.login({
         username: loginName,
         password: loginPassword
       });
 
+      console.log("Login successful!");
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("childName", response.data.user.username);
-      localStorage.setItem("userRole", response.data.user.role);
+      localStorage.setItem("userRole", response.data.user.role || "child");
       localStorage.setItem("loggedIn", "true");
 
-      navigate("/checkin");
+      // Use window.location.hash for HashRouter to be extra safe
+      window.location.hash = "/checkin";
     } catch (err) {
+      console.error("Login Error:", err);
       alert(err.response?.data?.message || "Invalid login details ❌");
     }
   };
