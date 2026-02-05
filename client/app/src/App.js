@@ -19,8 +19,8 @@ function App() {
     <Router>
       <Routes>
         {/* Pages WITHOUT navbar */}
-        <Route path="/" element={<Register />} />
-        <Route path="/login" element={<ChildLogin />} />
+        <Route path="/" element={<ChildLogin />} />
+        <Route path="/signup" element={<Register />} />
         <Route path="/parent-login" element={<ParentLogin />} />
         <Route path="/success" element={<Success />} />
 
