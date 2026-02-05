@@ -11,6 +11,8 @@ import Draw from "./pages/Draw";
 import Sounds from "./pages/Sounds";
 import EmotionalDashboard from "./pages/EmotionalDashboard";
 import WeatherDetails from "./pages/WeatherDetails";
+import HelpingHand from "./pages/HelpingHand";
+import Success from "./pages/Success";
 
 function App() {
   return (
@@ -20,6 +22,7 @@ function App() {
         <Route path="/" element={<Register />} />
         <Route path="/login" element={<ChildLogin />} />
         <Route path="/parent-login" element={<ParentLogin />} />
+        <Route path="/success" element={<Success />} />
 
         {/* Pages WITH navbar */}
         <Route
@@ -49,6 +52,10 @@ function App() {
         <Route
           path="/weather-details"
           element={<Layout><WeatherDetails /></Layout>}
+        />
+        <Route
+          path="/helping-hand"
+          element={<Layout><HelpingHand /></Layout>}
         />
       </Routes>
     </Router>

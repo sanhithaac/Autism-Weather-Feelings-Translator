@@ -1,4 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
+import { emotionAPI } from "../services/api";
 
 const MATCHES = {
   "Sunny-Happy": "Bright sunshine and a joyful heart 🌞 You’re glowing today!",
@@ -36,22 +37,34 @@ export default function Match() {
   const message = MATCHES[key] || "Every feeling is okay 💛";
 
   /* ✅ SAVE TO DASHBOARD */
-  const saveAndGoToDashboard = () => {
-    const todayCheckin = {
-      date: new Date().toLocaleDateString(),
-      weather,
-      feeling,
-      message,
-    };
+  const saveAndGoToDashboard = async () => {
+    try {
+      await emotionAPI.logEmotion({
+        emotion: feeling,
+        weather: weather,
+        intensity: 3, // Default for now
+        note: message
+      });
 
-    localStorage.setItem("todayCheckin", JSON.stringify(todayCheckin));
-    navigate("/dashboard");
+      const todayCheckin = {
+        date: new Date().toLocaleDateString(),
+        weather,
+        feeling,
+        message,
+      };
+
+      localStorage.setItem("todayCheckin", JSON.stringify(todayCheckin));
+      navigate("/dashboard");
+    } catch (err) {
+      alert("Failed to save check-in ❌");
+      console.error(err);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-pink-50 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-background flex items-center justify-center px-4">
       <div className="bg-white max-w-xl w-full rounded-2xl p-8 shadow text-center">
-        <h1 className="text-3xl font-bold text-pink-600 mb-4">
+        <h1 className="text-3xl font-bold text-primary mb-4">
           Your Match 🌈
         </h1>
 
@@ -64,14 +77,14 @@ export default function Match() {
         <div className="flex gap-4 justify-center">
           <button
             onClick={() => navigate("/checkin")}
-            className="border-2 border-pink-400 text-pink-600 px-6 py-3 rounded-full font-bold"
+            className="border-2 border-primary/40 text-primary px-6 py-3 rounded-full font-bold"
           >
             Set Again
           </button>
 
           <button
             onClick={saveAndGoToDashboard}
-            className="bg-pink-500 text-white px-6 py-3 rounded-full font-bold hover:bg-pink-600 transition"
+            className="bg-primary text-white px-6 py-3 rounded-full font-bold hover:opacity-90 transition"
           >
             Save & View Dashboard →
           </button>

@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 export default function Checkin() {
   const navigate = useNavigate();
-  
+
 
   useEffect(() => {
     const loggedIn = localStorage.getItem("loggedIn");
@@ -106,7 +106,7 @@ export default function Checkin() {
       </div>
 
       {/* MATCH BOX */}
-      <div className="max-w-4xl mx-auto bg-pink-100 border-2 border-dashed border-pink-400 rounded-2xl p-10 text-center mb-20">
+      <div className="max-w-4xl mx-auto bg-surface border-2 border-dashed border-primary/40 rounded-2xl p-10 text-center mb-20 shadow-sm">
         <div className="text-4xl mb-4">
           {selectedWeather ? selectedWeather.icon : "❓"} +{" "}
           {selectedFeeling ? selectedFeeling.icon : "❓"}
@@ -122,7 +122,7 @@ export default function Checkin() {
 
         <button
           onClick={goToMatch}
-          className="bg-pink-500 hover:bg-pink-600 text-white px-10 py-4 rounded-full font-bold text-lg transition"
+          className="bg-primary hover:opacity-90 text-white px-10 py-4 rounded-full font-bold text-lg transition"
         >
           Check My Match
         </button>
@@ -142,7 +142,7 @@ export default function Checkin() {
           title="Drawing Board"
           desc="Draw how you feel today."
           emoji="🎨"
-          color="bg-pink-200"
+          color="bg-primary/20"
           onClick={() => navigate("/draw")}
         />
 
@@ -165,10 +165,9 @@ function SelectCard({ title, icon, desc, selected, onClick }) {
     <div
       onClick={onClick}
       className={`cursor-pointer rounded-xl p-6 text-center transition
-        ${
-          selected
-            ? "bg-green-200 ring-4 ring-green-400"
-            : "bg-green-50 hover:bg-green-100"
+        ${selected
+          ? "bg-green-200 ring-4 ring-green-400"
+          : "bg-green-50 hover:bg-green-100"
         }`}
     >
       <div className="text-4xl mb-2">{icon}</div>

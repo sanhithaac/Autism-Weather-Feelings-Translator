@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { emotionAPI } from "../services/api";
 
 export default function EmotionalDashboard() {
   const navigate = useNavigate();
@@ -14,26 +15,39 @@ export default function EmotionalDashboard() {
     }
   }, [navigate]);
 
-  /* 📦 Load today’s check-in */
+  /* 📦 Load today’s check-in from Backend */
   useEffect(() => {
-    const saved = localStorage.getItem("todayCheckin");
-    if (saved) {
-      setCheckin(JSON.parse(saved));
-    }
+    const fetchLatestLog = async () => {
+      try {
+        const response = await emotionAPI.getMyLogs();
+        if (response.data.length > 0) {
+          const latest = response.data[0];
+          setCheckin({
+            weather: latest.weather,
+            feeling: latest.emotion,
+            message: latest.note,
+            date: new Date(latest.timestamp).toLocaleDateString()
+          });
+        }
+      } catch (err) {
+        console.error("Failed to fetch dashboard data:", err);
+      }
+    };
+    fetchLatestLog();
   }, []);
 
   const childName = localStorage.getItem("childName") || "Your child";
 
   return (
-    <div className="min-h-screen bg-pink-50">
-      <div className="max-w-6xl mx-auto px-6 py-12">
+    <div className="min-h-screen bg-background">
+      <div className="max-w-7xl mx-auto px-6 py-12">
 
         {/* TITLE */}
-        <h1 className="text-4xl font-bold text-pink-700 mb-2">
+        <h1 className="text-4xl font-bold text-primary mb-2">
           Emotional Dashboard
         </h1>
 
-        <p className="text-pink-600 mb-10 text-lg">
+        <p className="text-primary/80 mb-10 text-lg">
           A gentle overview of {childName}’s emotional journey 🌸
         </p>
 
@@ -47,14 +61,14 @@ export default function EmotionalDashboard() {
 
               <p className="text-xl mb-2">
                 Weather:{" "}
-                <span className="font-bold text-pink-600">
+                <span className="font-bold text-primary">
                   {checkin.weather}
                 </span>
               </p>
 
               <p className="text-xl mb-4">
                 Feeling:{" "}
-                <span className="font-bold text-pink-600">
+                <span className="font-bold text-primary">
                   {checkin.feeling}
                 </span>
               </p>
@@ -99,14 +113,14 @@ export default function EmotionalDashboard() {
         <div className="flex flex-wrap gap-6">
           <button
             onClick={() => navigate("/checkin")}
-            className="bg-pink-500 text-white px-8 py-4 rounded-full font-bold hover:bg-pink-600 transition"
+            className="bg-primary text-white px-8 py-4 rounded-full font-bold hover:opacity-90 transition"
           >
             Go to Check-in
           </button>
 
           <button
             onClick={() => navigate("/story")}
-            className="bg-white border-2 border-pink-300 text-pink-600 px-8 py-4 rounded-full font-bold hover:bg-pink-100 transition"
+            className="bg-white border-2 border-primary/30 text-primary px-8 py-4 rounded-full font-bold hover:bg-primary/10 transition"
           >
             View Story Mode
           </button>

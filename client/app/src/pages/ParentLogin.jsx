@@ -1,55 +1,53 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { authAPI } from "../services/api";
 
 export default function ParentLogin() {
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(""); // Email will be used as username for parents
   const [password, setPassword] = useState("");
-
-  /* ---------- VALIDATION ---------- */
-
-  const isValidEmail = (email) =>
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
-  const isStrongPassword = (password) =>
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[_@!#$%^&*]).{8,}$/.test(password);
 
   /* ---------- LOGIN ---------- */
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!email || !password) {
       alert("Please fill all fields 🌸");
       return;
     }
 
-    if (!isValidEmail(email)) {
-      alert("Please enter a valid email 📧");
-      return;
+    try {
+      const response = await authAPI.login({
+        username: email,
+        password: password
+      });
+
+      if (response.data.user.role !== 'parent') {
+        alert("This login is for parents only ❌");
+        return;
+      }
+
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("parentLoggedIn", "true");
+      localStorage.setItem("parentEmail", response.data.user.username);
+      localStorage.setItem("loggedIn", "true");
+      localStorage.setItem("userRole", "parent");
+
+      navigate("/dashboard");
+    } catch (err) {
+      alert(err.response?.data?.message || "Invalid login details ❌");
     }
-
-    if (!isStrongPassword(password)) {
-      alert(
-        "Password must have:\n• 8+ characters\n• Uppercase\n• Lowercase\n• Number\n• Special character (_ @ ! # etc)"
-      );
-      return;
-    }
-
-    localStorage.setItem("parentLoggedIn", "true");
-    localStorage.setItem("parentEmail", email);
-
-    navigate("/dashboard");
   };
 
   return (
-    <div className="min-h-screen bg-pink-50 flex items-center justify-center px-6">
+    <div className="min-h-screen bg-background flex items-center justify-center px-6">
 
-      <div className="w-full max-w-lg">
+      <div className="w-full max-w-4xl">
 
         {/* 🔙 BACK TO HOME */}
         <button
           onClick={() => navigate("/")}
-          className="mb-6 text-pink-600 font-semibold hover:underline flex items-center gap-2"
+          className="mb-6 text-primary font-semibold hover:underline flex items-center gap-2"
         >
           ← Back to Home
         </button>
@@ -59,7 +57,7 @@ export default function ParentLogin() {
 
           <div className="text-5xl mb-4">👨‍👩‍👧</div>
 
-          <h1 className="text-3xl font-bold text-pink-600 mb-2">
+          <h1 className="text-3xl font-bold text-primary mb-2">
             Parent Login
           </h1>
 
@@ -70,7 +68,7 @@ export default function ParentLogin() {
           <input
             type="email"
             placeholder="Parent Email"
-            className="w-full border-2 border-pink-300 rounded-full px-6 py-4 mb-5 text-lg"
+            className="w-full border-2 border-primary/30 rounded-full px-6 py-4 mb-5 text-lg"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -78,14 +76,14 @@ export default function ParentLogin() {
           <input
             type="password"
             placeholder="Password"
-            className="w-full border-2 border-pink-300 rounded-full px-6 py-4 mb-6 text-lg"
+            className="w-full border-2 border-primary/30 rounded-full px-6 py-4 mb-6 text-lg"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
 
           <button
             onClick={handleLogin}
-            className="w-full bg-pink-500 hover:bg-pink-600 text-white py-4 rounded-full font-bold text-lg transition"
+            className="w-full bg-primary hover:opacity-90 text-white py-4 rounded-full font-bold text-lg transition"
           >
             Login →
           </button>

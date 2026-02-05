@@ -51,7 +51,7 @@ export default function WeatherDetails() {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      
+
 
       <div className="max-w-5xl mx-auto px-6 py-10">
         <h1 className="text-3xl font-bold text-center mb-4">
@@ -68,10 +68,9 @@ export default function WeatherDetails() {
               key={w.name}
               onClick={() => setSelectedWeather(w)}
               className={`px-6 py-3 rounded-full font-semibold transition
-                ${
-                  selectedWeather?.name === w.name
-                    ? "bg-pink-500 text-white"
-                    : "bg-white border hover:bg-pink-100"
+                ${selectedWeather?.name === w.name
+                  ? "bg-primary text-white"
+                  : "bg-surface border hover:bg-primary/10"
                 }`}
             >
               {w.icon} {w.name}
@@ -102,7 +101,7 @@ export default function WeatherDetails() {
               <h3 className="font-semibold text-lg mb-2">
                 How might it feel?
               </h3>
-              <p className="bg-pink-100 inline-block px-4 py-2 rounded-full">
+              <p className="bg-primary/10 inline-block px-4 py-2 rounded-full">
                 {selectedWeather.feeling}
               </p>
             </div>

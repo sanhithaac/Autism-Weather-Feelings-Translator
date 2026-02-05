@@ -1,11 +1,24 @@
 import { useEffect, useState } from "react";
-import api from "../services/api";
+import { emotionAPI } from "../services/api";
 
 export default function ParentDashboard() {
   const [logs, setLogs] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api.get("/emotions").then(res => setLogs(res.data));
+    const fetchLogs = async () => {
+      try {
+        // For now, let's fetch the logged-in user's logs
+        // (In a full parent-child linked system, we'd fetch the child's ID first)
+        const response = await emotionAPI.getMyLogs();
+        setLogs(response.data);
+      } catch (err) {
+        console.error("Failed to fetch logs:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchLogs();
   }, []);
 
   return (

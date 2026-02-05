@@ -26,8 +26,8 @@ export default function Draw() {
   };
 
   return (
-    <div className="min-h-screen bg-pink-100 flex flex-col items-center px-4 py-10">
-      <h1 className="text-3xl font-bold text-pink-600 mb-6">
+    <div className="min-h-screen bg-background flex flex-col items-center px-4 py-10">
+      <h1 className="text-3xl font-bold text-primary mb-6">
         🎨 Drawing Board
       </h1>
 
@@ -44,7 +44,7 @@ export default function Draw() {
 
       <button
         onClick={() => navigate("/checkin")}
-        className="bg-pink-500 text-white px-6 py-3 rounded-full font-bold hover:bg-pink-600 transition"
+        className="bg-primary text-white px-6 py-3 rounded-full font-bold hover:opacity-90 transition"
       >
         Back to Check-in
       </button>

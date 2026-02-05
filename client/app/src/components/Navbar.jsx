@@ -8,48 +8,54 @@ export default function Navbar() {
   const isHomePage = location.pathname === "/";
 
   return (
-    <nav className="bg-white border-b border-pink-200 px-8 py-4 flex justify-between items-center">
-      
+    <nav className="bg-white border-b border-gray-200 px-8 py-4 flex justify-between items-center bg-surface">
+
       {/* LOGO */}
       <div
-        className="font-bold text-pink-600 text-lg cursor-pointer"
+        className="font-bold text-primary text-lg cursor-pointer"
         onClick={() => navigate("/")}
       >
-        🌸 Weather Feelings
+        🌤️ Weather Feelings
       </div>
 
       {/* RIGHT SIDE */}
       <div className="flex items-center gap-6">
-        
+
         {/* SHOW FULL MENU ONLY IF NOT HOME */}
         {!isHomePage && (
           <>
             <button
               onClick={() => navigate("/")}
-              className="text-gray-600 hover:text-pink-500"
+              className="text-text-muted hover:text-primary transition-colors duration-200"
             >
               Home
             </button>
 
             <button
               onClick={() => navigate("/checkin")}
-              className="text-gray-600 hover:text-pink-500"
+              className="text-text-muted hover:text-primary transition-colors duration-200"
             >
               Check-in
             </button>
 
             <button
               onClick={() => navigate("/weather-details")}
-              className="text-gray-600 hover:text-pink-500"
+              className="text-text-muted hover:text-primary transition-colors duration-200"
             >
               Weather Details
             </button>
 
             <button
               onClick={() => navigate("/dashboard")}
-              className="text-gray-600 hover:text-pink-500"
+              className="text-text-muted hover:text-primary transition-colors duration-200"
             >
               Dashboard
+            </button>
+            <button
+              onClick={() => navigate("/helping-hand")}
+              className="text-text-muted hover:text-primary transition-colors duration-200"
+            >
+              Helping Hand
             </button>
           </>
         )}
@@ -57,7 +63,7 @@ export default function Navbar() {
         {/* PARENT LOGIN ALWAYS VISIBLE */}
         <button
           onClick={() => navigate("/parent-login")}
-          className="bg-pink-100 hover:bg-pink-200 text-pink-700 px-4 py-2 rounded-full font-semibold"
+          className="bg-primary hover:opacity-90 text-white px-4 py-2 rounded-full font-semibold transition-all duration-200"
         >
           Parent Login
         </button>
