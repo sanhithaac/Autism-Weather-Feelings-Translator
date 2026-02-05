@@ -12,7 +12,8 @@
         "server": "cd server && node index.js",
         "dev": "concurrently \"npm run server\" \"npm run client\"",
         "install:all": "npm install && cd client && npm install && cd ../server && npm install",
-        "build:client": "cd client && npm run build"
+        "build:client": "cd client && npm run build",
+        "build": "npm run build:client"
     },
     "dependencies": {
         "bcryptjs": "^3.0.3",
