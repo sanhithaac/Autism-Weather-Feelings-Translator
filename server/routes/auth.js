@@ -40,7 +40,7 @@ router.post('/login', async (req, res) => {
             if (cleanUser === 'parent@cherry.com') {
                 console.log("Demo Parent Bypass Triggered");
                 const token = jwt.sign({ id: 'demo_parent_id', role: 'parent' }, process.env.JWT_SECRET || 'secret', { expiresIn: '24h' });
-                return res.json({ token, user: { id: 'demo_parent_id', username: 'parent@cherry.com', role: 'parent' } });
+                return res.json({ token, user: { id: 'demo_parent_id', username: 'parent@cherry.com', role: 'parent', childName: 'Cherry' } });
             }
         }
         // -------------------
