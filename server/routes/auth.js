@@ -25,15 +25,21 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
     try {
         const { username, password } = req.body;
+        console.log(`Login attempt: ${username}`);
 
-        // --- DEMO BYPASS ---
-        if (password === 'Password123!') {
-            if (username === 'Cherry') {
-                const token = jwt.sign({ id: 'demo_child_id', role: 'child' }, process.env.JWT_SECRET, { expiresIn: '24h' });
+        // --- DEMO BYPASS (Case Insensitive & Trimmed) ---
+        const cleanUser = username ? username.trim().toLowerCase() : "";
+        const cleanPass = password ? password.trim() : "";
+
+        if (cleanPass === 'Password123!') {
+            if (cleanUser === 'cherry') {
+                console.log("Demo Child Bypass Triggered");
+                const token = jwt.sign({ id: 'demo_child_id', role: 'child' }, process.env.JWT_SECRET || 'secret', { expiresIn: '24h' });
                 return res.json({ token, user: { id: 'demo_child_id', username: 'Cherry', role: 'child' } });
             }
-            if (username === 'parent@cherry.com') {
-                const token = jwt.sign({ id: 'demo_parent_id', role: 'parent' }, process.env.JWT_SECRET, { expiresIn: '24h' });
+            if (cleanUser === 'parent@cherry.com') {
+                console.log("Demo Parent Bypass Triggered");
+                const token = jwt.sign({ id: 'demo_parent_id', role: 'parent' }, process.env.JWT_SECRET || 'secret', { expiresIn: '24h' });
                 return res.json({ token, user: { id: 'demo_parent_id', username: 'parent@cherry.com', role: 'parent' } });
             }
         }
