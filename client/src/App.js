@@ -13,6 +13,7 @@ import EmotionalDashboard from "./pages/EmotionalDashboard";
 import WeatherDetails from "./pages/WeatherDetails";
 import HelpingHand from "./pages/HelpingHand";
 import Success from "./pages/Success";
+import MathGames from "./pages/MathGames";
 
 import Home from "./pages/Home";
 
@@ -59,6 +60,10 @@ function App() {
         <Route
           path="/helping-hand"
           element={<Layout><HelpingHand /></Layout>}
+        />
+        <Route
+          path="/math-games"
+          element={<Layout><MathGames /></Layout>}
         />
       </Routes>
     </Router>

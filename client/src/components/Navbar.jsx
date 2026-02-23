@@ -57,6 +57,12 @@ export default function Navbar() {
             >
               Helping Hand
             </button>
+            <button
+              onClick={() => navigate("/math-games")}
+              className="text-text-muted hover:text-primary transition-colors duration-200"
+            >
+              Math Games
+            </button>
           </>
         )}
 

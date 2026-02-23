@@ -17,10 +17,22 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/emotions', emotionRoutes);
 
-// Database Connection
-mongoose.connect(process.env.MONGO_URI)
-    .then(() => {
-        console.log('Connected to MongoDB');
-        app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-    })
-    .catch(err => console.error('MongoDB connection error:', err));
+const startServer = () => {
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+};
+
+// Database Connection with local demo fallback
+if (process.env.MONGO_URI && !process.env.MONGO_URI.includes('undefined')) {
+    mongoose.connect(process.env.MONGO_URI)
+        .then(() => {
+            console.log('Connected to MongoDB');
+            startServer();
+        })
+        .catch(err => {
+            console.error('MongoDB connection error, running in demo mode:', err.message);
+            startServer();
+        });
+} else {
+    console.log('No MONGO_URI found, running in demo mode');
+    startServer();
+}

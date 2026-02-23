@@ -28,3 +28,93 @@ h5,
 h6 {
   font-family: 'Baloo 2', cursive;
 }
+
+.game-page-bg {
+  background: radial-gradient(circle at 10% 20%, #d1fae5 0%, #ecfeff 35%, #f0fdf4 100%);
+}
+
+.bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(16, 185, 129, 0.15) 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.bg-orb {
+  position: absolute;
+  border-radius: 9999px;
+  opacity: 0.35;
+  filter: blur(2px);
+  pointer-events: none;
+}
+
+.orb-a {
+  width: 320px;
+  height: 320px;
+  left: -60px;
+  top: 80px;
+  background: #6ee7b7;
+  animation: float-a 11s ease-in-out infinite;
+}
+
+.orb-b {
+  width: 260px;
+  height: 260px;
+  right: -40px;
+  top: 120px;
+  background: #7dd3fc;
+  animation: float-b 13s ease-in-out infinite;
+}
+
+.orb-c {
+  width: 300px;
+  height: 300px;
+  right: 22%;
+  bottom: -100px;
+  background: #86efac;
+  animation: float-c 12s ease-in-out infinite;
+}
+
+.animate-pop {
+  animation: pop-in 0.35s ease-out;
+}
+
+.animate-bounce-soft {
+  animation: bounce-soft 1.8s ease-in-out infinite;
+}
+
+.animate-wiggle-lite {
+  animation: wiggle-lite 2.4s ease-in-out infinite;
+}
+
+@keyframes float-a {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  50% { transform: translateY(-18px) translateX(10px); }
+}
+
+@keyframes float-b {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  50% { transform: translateY(16px) translateX(-12px); }
+}
+
+@keyframes float-c {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-14px) scale(1.05); }
+}
+
+@keyframes pop-in {
+  0% { transform: scale(0.98); }
+  100% { transform: scale(1); }
+}
+
+@keyframes bounce-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes wiggle-lite {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-1deg); }
+}
