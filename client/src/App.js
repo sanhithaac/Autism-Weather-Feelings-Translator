@@ -65,6 +65,10 @@ function App() {
           path="/math-games"
           element={<Layout><MathGames /></Layout>}
         />
+        <Route
+          path="/math-games/:gameId"
+          element={<Layout><MathGames /></Layout>}
+        />
       </Routes>
     </Router>
   );
